@@ -1,0 +1,152 @@
+﻿@model Friseur.ViewModels.NewClientViewModel
+
+
+<a href="#" class="btn btn-primary btn-md" data-toggle="modal" data-target="#ModalAddNewClient">
+	<i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+	Add New Client
+</a>
+
+<div class="modal fade" id="ModalAddNewClient">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a href="#" class="close" data-dismiss="modal">&times;</a>
+				<h3 class="modal-title">Add New Client</h3>
+			</div>
+			<div class="modal-body">
+				<form id="AddClientForm">
+					@Html.AntiForgeryToken()
+
+					<div class="form-horizontal">
+						<hr />
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Client.Name, new { htmlAttributes = new { @class = "form-control " } })
+								@Html.ValidationMessageFor(model => model.Client.Name, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client.Client_Address, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Client.Client_Address, new { htmlAttributes = new { @class = "form-control " } })
+								@Html.ValidationMessageFor(model => model.Client.Client_Address, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client.ClientTypeId, "Client Type", htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(m => m.Client.ClientTypeId, new SelectList(Model.ClientTypes, "ClientTypeId", "ClientTypeName"), "Please Select", new { @class = "form-control" })
+
+								@Html.ValidationMessageFor(model => model.Client.ClientTypeId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="reset" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+							<input type="button" value="Save" class="btn btn-default" id="btnSubmit1" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#btnSubmit1").on("click", function () {
+			if ($("#AddClientForm").valid()) {
+
+				var data = $("#AddClientForm").serialize();
+				$.ajax({
+					type: "POST",
+					url: "/Clients/Create",
+					data: data,
+					success: function (response) {
+						toastr.options.onHidden = function () {
+							window.location.reload();
+						}
+						toastr.options.positionClass = "toast-bottom-full-width";
+						toastr.options.progressBar = true;
+						toastr.options.timeout = 0;
+						toastr.options.extendedTimeOut = 0;
+						toastr.options.fadeOut = 500;
+						toastr.options.tapToDismiss = false;
+						toastr.success("Client added successfully");
+						$("#ModalAddNewClient").modal("hide");
+						$("#AddClientForm")[0].reset();
+					},
+					error: function (response) {
+						toastr.options.positionClass = "toast-bottom-full-width";
+						toastr.options.progressBar = true;
+						toastr.options.timeout = 0;
+						toastr.options.extendedTimeOut = 0;
+						toastr.options.fadeOut = 500;
+						toastr.options.tapToDismiss = false;
+						toastr.error("Oops, There has been a problem, the system adminstrators have been notified.");
+						$("#ModalAddNewClient").modal("hide");
+						$("#AddClientForm")[0].reset();
+					}
+				})
+
+			}
+		})
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#AddClientForm').validate({
+			errorClass: 'help-block animation-slideDown',
+			errorElement: 'div',
+			errorPlacement: function (error, e) {
+				e.parents('.form-group > div').append(error);
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+				$(e).closest('.help-block').remove();
+			},
+			success: function (e) {
+				e.closest('.form-group').removeClass('has-success has-error');
+				e.closest('.help-block').remove();
+			},
+			rules: {
+				'Client.Name': {
+					required: true,
+					maxlength: 20,
+				},
+				'Client.Client_Address': {
+					required: true,
+					maxlength: 30,
+				},
+				'Client.ClientTypeId': {
+					required: true,
+				}
+			},
+			messages: {
+				'Client.Name': {
+					required: 'Please enter organisation name',
+					maxlength: 'Not more than 20 characters allowed'
+				},
+				'Client.Client_Address': {
+					required: 'Please enter client address',
+					maxlength: 'Not more than 30 characters allowed'
+				},
+				'Client.ClientTypeId': 'Please select client type'
+			}
+		});
+	});
+
+</script>
+
+
+
