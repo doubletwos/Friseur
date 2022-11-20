@@ -2,7 +2,7 @@
 <head>
 
 	@{
-		ViewBag.Title = "Index";
+		ViewBag.Title = "ClientsTable";
 	}
 	<link href="~/Main/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 </head>
@@ -10,16 +10,10 @@
 <br/>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-12">
 		@{
 			Html.RenderAction("AddNewClient", "Clients");
 		}
-	</div>
-	<div class="col-md-3">
-	</div>
-	<div class="col-md-3">
-	</div>
-	<div class="col-md-3">
 	</div>
 </div>
 

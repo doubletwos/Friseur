@@ -171,8 +171,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\ClientTypesController.cs" />
+    <Compile Include="Controllers\Client_UserController.cs" />
+    <Compile Include="Controllers\GendersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,17 +207,37 @@
     <Compile Include="Migrations\202211190735190_Sprint2022.11.05.designer.cs">
       <DependentUpon>202211190735190_Sprint2022.11.05.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211200829081_Sprint2022.11.06.cs" />
+    <Compile Include="Migrations\202211200829081_Sprint2022.11.06.designer.cs">
+      <DependentUpon>202211200829081_Sprint2022.11.06.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211200831237_Sprint2022.11.07.cs" />
+    <Compile Include="Migrations\202211200831237_Sprint2022.11.07.designer.cs">
+      <DependentUpon>202211200831237_Sprint2022.11.07.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211200858348_Sprint2022.11.08.cs" />
+    <Compile Include="Migrations\202211200858348_Sprint2022.11.08.designer.cs">
+      <DependentUpon>202211200858348_Sprint2022.11.08.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211201205410_Sprint2022.11.09.cs" />
+    <Compile Include="Migrations\202211201205410_Sprint2022.11.09.designer.cs">
+      <DependentUpon>202211201205410_Sprint2022.11.09.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ClientType.cs" />
     <Compile Include="Models\ClientClientType.cs" />
+    <Compile Include="Models\Client_User.cs" />
+    <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NewClientViewModel.cs" />
+    <Compile Include="ViewModels\NewPowerHouseUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-lumen.css" />
@@ -294,7 +317,7 @@
     <Content Include="Views\Clients\Delete.cshtml" />
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Clients\ClientsTable.cshtml" />
     <Content Include="Views\Home\SysAdminHome.cshtml" />
     <Content Include="Views\ClientTypes\Create.cshtml" />
     <Content Include="Views\ClientTypes\Delete.cshtml" />
@@ -302,6 +325,22 @@
     <Content Include="Views\ClientTypes\Edit.cshtml" />
     <Content Include="Views\ClientTypes\Index.cshtml" />
     <Content Include="Views\Shared\PartialViewsForms\_AddNewClient.cshtml" />
+    <Content Include="Views\Genders\Delete.cshtml" />
+    <Content Include="Views\Genders\Details.cshtml" />
+    <Content Include="Views\Genders\Edit.cshtml" />
+    <Content Include="Views\Genders\GendersTable.cshtml" />
+    <Content Include="Views\UserTypes\Delete.cshtml" />
+    <Content Include="Views\UserTypes\Details.cshtml" />
+    <Content Include="Views\UserTypes\Edit.cshtml" />
+    <Content Include="Views\UserTypes\UserTypesTable.cshtml" />
+    <Content Include="Views\Shared\PartialViewsForms\_AddNewGender.cshtml" />
+    <Content Include="Views\Shared\PartialViewsForms\_AddNewUserType.cshtml" />
+    <Content Include="Views\Client_User\Create.cshtml" />
+    <Content Include="Views\Client_User\Delete.cshtml" />
+    <Content Include="Views\Client_User\Details.cshtml" />
+    <Content Include="Views\Client_User\Edit.cshtml" />
+    <Content Include="Views\Client_User\Index.cshtml" />
+    <Content Include="Views\Shared\PartialViewsForms\_AddNewPowerHouseUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -338,6 +377,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211190735190_Sprint2022.11.05.resx">
       <DependentUpon>202211190735190_Sprint2022.11.05.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211200829081_Sprint2022.11.06.resx">
+      <DependentUpon>202211200829081_Sprint2022.11.06.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211200831237_Sprint2022.11.07.resx">
+      <DependentUpon>202211200831237_Sprint2022.11.07.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211200858348_Sprint2022.11.08.resx">
+      <DependentUpon>202211200858348_Sprint2022.11.08.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211201205410_Sprint2022.11.09.resx">
+      <DependentUpon>202211201205410_Sprint2022.11.09.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

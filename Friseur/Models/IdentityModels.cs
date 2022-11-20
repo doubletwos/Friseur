@@ -24,6 +24,18 @@ namespace Friseur.Models
         public DbSet<Client> Clients { get; set; }
         public DbSet<ClientType> ClientTypes { get; set; }
         public DbSet<ClientClientType> Client_ClientTypes { get; set; }
+        public DbSet<Client_User> Client_Users { get; set; }
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
+
+
+
+
+
+
+
+
+
 
 
         public ApplicationDbContext()

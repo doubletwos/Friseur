@@ -13,12 +13,13 @@ using Microsoft.AspNet.Identity;
 
 namespace Friseur.Controllers
 {
+    [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
     public class ClientsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Clients
-        public ActionResult Index()
+        // GET: ClientsTable
+        public ActionResult ClientsTable()
         {
             return View(db.Clients.ToList());
         }
@@ -39,7 +40,6 @@ namespace Friseur.Controllers
         }
 
         // GET: Clients/Create
-        [Authorize(Roles="SuperUser_CanDoEverything")]
         public ActionResult Create()
         {
 
@@ -53,7 +53,6 @@ namespace Friseur.Controllers
         }
 
         [ChildActionOnly]
-        [Authorize(Roles ="SuperUser_CanDoEverything")]
         public ActionResult AddNewClient()
         {
             try
@@ -77,9 +76,8 @@ namespace Friseur.Controllers
         }
 
             // POST: Clients/Create
-            [HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "SuperUser_CanDoEverything")]
         public ActionResult Create(NewClientViewModel viewmodel) 
         {
 
@@ -92,7 +90,7 @@ namespace Friseur.Controllers
 
                     db.Clients.Add(viewmodel.Client);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ClientsTable");
                 }
 
             }
@@ -121,17 +119,15 @@ namespace Friseur.Controllers
         }
 
         // POST: Clients/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientId,Name,Client_Address,Created_By,CreationDate")] Client client)
+        public ActionResult Edit (Client client)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ClientsTable");
             }
             return View(client);
         }
@@ -159,7 +155,7 @@ namespace Friseur.Controllers
             Client client = db.Clients.Find(id);
             db.Clients.Remove(client);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ClientsTable");
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,214 @@
+﻿@model Friseur.ViewModels.NewPowerHouseUserViewModel
+
+<a href="#" class="btn btn-primary btn-md" data-toggle="modal" data-target="#ModalAddNewUser">
+	<i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+	Add New User
+</a>
+
+
+<div class="modal fade" id="ModalAddNewUser">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a href="#" class="close" data-dismiss="modal">&times;</a>
+				<h3 class="modal-title">Add New User</h3>
+			</div>
+			<div class="modal-body">
+				<form id="AddUserForm">
+					@Html.AntiForgeryToken()
+					<div class="form-horizontal">
+						<hr />
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client_User.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Client_User.UserName, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Client_User.UserName, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client_User.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Client_User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Client_User.FirstName, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client_User.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Client_User.LastName, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Client_User.LastName, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client_User.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Client_User.Email, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Client_User.Email, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client_User.ClientId, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(m => m.Client_User.ClientId, new SelectList(Model.Clients, "ClientId", "Name"), "Please Select", new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.Client_User.ClientId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client_User.GenderId, "GenderId", htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(m => m.Client_User.GenderId, new SelectList(Model.Genders, "GenderId", "name"), "Please Select", new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.Client_User.GenderId, "", new { @class = "text-danger" })
+							</div>
+						</div> 
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Client_User.UserTypeId, "User Type ", htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(m => m.Client_User.UserTypeId, new SelectList(Model.UserTypes, "UserTypeId", "name"), "Please Select", new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.Client_User.UserTypeId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<input type="reset" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+						<input type="button" value="Save" class="btn btn-default" id="btnSubmit" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#btnSubmit").on("click", function () {
+			if ($("#AddUserForm").valid()) {
+
+				var data = $("#AddUserForm").serialize();
+				$.ajax({
+					type: "POST",
+					url: "/Client_User/Create",
+					data: data,
+					success: function (response) {
+						toastr.options.onHidden = function () {
+							window.location.reload();
+						}
+						toastr.options.positionClass = "toast-bottom-full-width";
+						toastr.options.progressBar = true;
+						toastr.options.timeout = 0;
+						toastr.options.extendedTimeOut = 0;
+						toastr.options.fadeOut = 500;
+						toastr.options.tapToDismiss = false;
+						toastr.success("User added successfully");
+						$("#ModalAddNewUser").modal("hide");
+						$("#AddUserForm")[0].reset();
+					},
+					error: function (response) {
+						toastr.options.positionClass = "toast-bottom-full-width";
+						toastr.options.progressBar = true;
+						toastr.options.timeout = 0;
+						toastr.options.extendedTimeOut = 0;
+						toastr.options.fadeOut = 500;
+						toastr.options.tapToDismiss = false;
+						toastr.error("Oops, There has been a problem, the system adminstrators have been notified.");
+						$("#ModalAddNewUser").modal("hide");
+						$("#AddUserForm")[0].reset();
+					}
+				})
+
+			}
+		})
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#AddUserForm').validate({
+			errorClass: 'help-block animation-slideDown',
+			errorElement: 'div',
+			errorPlacement: function (error, e) {
+				e.parents('.form-group > div').append(error);
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+				$(e).closest('.help-block').remove();
+			},
+			success: function (e) {
+				e.closest('.form-group').removeClass('has-success has-error');
+				e.closest('.help-block').remove();
+			},
+			rules: {
+				'Client_User.UserName': {
+					required: true,
+					maxlength: 15,
+				},
+				'Client_User.FirstName': {
+					required: true,
+					maxlength: 15,
+				},
+				'Client_User.LastName': {
+					required: true,
+					maxlength: 15,
+				},
+				'Client_User.Email': {
+					required: true,
+					maxlength: 30,
+				},
+				'Client_User.ClientId': {
+					required: true,
+				},
+				'Client_User.GenderId': {
+					required: true,
+				},
+				'Client_User.UserTypeId': {
+					required: true,
+				},
+			},
+			messages: {
+				'Client_User.UserName': {
+					required: 'Please enter User Name',
+					maxlength: 'Not more than 15 characters allowed'
+				},
+				'Client_User.FirstName': {
+					required: 'Please enter First Name ',
+					maxlength: 'Not more than 15 characters allowed'
+				},
+				'Client_User.LastName': {
+					required: 'Please enter Last Name',
+					maxlength: 'Not more than 15 characters allowed'
+				},
+				'Client_User.Email': {
+					required: 'Please enter Email Address',
+					maxlength: 'Not more than 30 characters allowed'
+				},
+				'Client_User.ClientId': {
+					required: 'Please select Client',
+				},
+				'Client_User.GenderId': {
+					required: 'Please select Gender',
+				},
+				'Client_User.UserTypeId': {
+					required: 'Please enter User Type',
+				},
+			}
+		});
+	});
+
+</script>
