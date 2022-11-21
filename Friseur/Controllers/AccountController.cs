@@ -180,7 +180,13 @@ namespace Friseur.Controllers
             return View(model);
         }
 
-        //
+
+
+
+
+
+
+
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)

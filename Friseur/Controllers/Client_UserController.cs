@@ -8,7 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Friseur.Models;
 using Friseur.ViewModels;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Friseur.Controllers
 {
@@ -79,18 +80,42 @@ namespace Friseur.Controllers
         // POST: Client_User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Client_User client_User)
+        [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
+        public ActionResult Create(NewPowerHouseUserViewModel viewmodel) 
         {
-            if (ModelState.IsValid)
-            {
-                db.Client_Users.Add(client_User);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            ViewBag.GenderId = new SelectList(db.Genders, "GenderId", "name", client_User.GenderId);
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "name", client_User.UserTypeId);
-            return View(client_User);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email };
+                    var result = manager.Create(user, "ThisisatestPw1!");
+
+                    if (result.Succeeded)
+                    {
+                        string newId = user.Id;
+                    }
+
+                    viewmodel.Client_User.CreatedBy = User.Identity.GetUserId();
+                    viewmodel.Client_User.LastLogOnDate = null;
+                    viewmodel.Client_User.LogOnCount = 0;
+                    viewmodel.Client_User.AppUserId = user.Id;
+
+
+                    db.Client_Users.Add(viewmodel.Client_User);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            return View("Index");
         }
 
         // GET: Client_User/Edit/5

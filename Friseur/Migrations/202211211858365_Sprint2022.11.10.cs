@@ -1,0 +1,18 @@
+﻿namespace Friseur.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class Sprint20221110 : DbMigration
+    {
+        public override void Up()
+        {
+            DropColumn("dbo.Client_User", "UserName");
+        }
+        
+        public override void Down()
+        {
+            AddColumn("dbo.Client_User", "UserName", c => c.String());
+        }
+    }
+}
