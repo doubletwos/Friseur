@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Friseur.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Friseur.Helpers;
 
 namespace Friseur.Controllers
 {
@@ -457,8 +458,15 @@ namespace Friseur.Controllers
             }
         }
 
+
+
+
         private ActionResult RedirectToLocal(string returnUrl)
         {
+
+            User.Identity.GetUserClientId();
+
+
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);

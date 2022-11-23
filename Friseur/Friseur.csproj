@@ -179,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Migrations\202211171821416_InitialModel.cs" />
     <Compile Include="Migrations\202211171821416_InitialModel.designer.cs">
       <DependentUpon>202211171821416_InitialModel.cs</DependentUpon>
@@ -226,6 +227,10 @@
     <Compile Include="Migrations\202211211858365_Sprint2022.11.10.cs" />
     <Compile Include="Migrations\202211211858365_Sprint2022.11.10.designer.cs">
       <DependentUpon>202211211858365_Sprint2022.11.10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211230511376_Sprint2022.11.11.cs" />
+    <Compile Include="Migrations\202211230511376_Sprint2022.11.11.designer.cs">
+      <DependentUpon>202211230511376_Sprint2022.11.11.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -396,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211211858365_Sprint2022.11.10.resx">
       <DependentUpon>202211211858365_Sprint2022.11.10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211230511376_Sprint2022.11.11.resx">
+      <DependentUpon>202211230511376_Sprint2022.11.11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

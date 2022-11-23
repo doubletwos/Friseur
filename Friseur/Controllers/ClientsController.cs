@@ -10,7 +10,6 @@ using Friseur.Models;
 using Friseur.ViewModels;
 using Microsoft.AspNet.Identity;
 
-
 namespace Friseur.Controllers
 {
     [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
@@ -64,7 +63,6 @@ namespace Friseur.Controllers
 
                 };
 
-                //ViewBag.ClientTypeId = new SelectList(db.ClientTypes, "ClientTypeId", "ClientTypeName");
                 return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClient.cshtml", viewmodel);
 
             }
@@ -87,6 +85,12 @@ namespace Friseur.Controllers
                 {
                     viewmodel.Client.Created_By = User.Identity.GetUserId();
                     viewmodel.Client.CreationDate = DateTime.Now;
+
+
+
+
+
+
 
                     db.Clients.Add(viewmodel.Client);
                     db.SaveChanges();
