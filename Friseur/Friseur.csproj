@@ -232,6 +232,14 @@
     <Compile Include="Migrations\202211230511376_Sprint2022.11.11.designer.cs">
       <DependentUpon>202211230511376_Sprint2022.11.11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211252023579_Sprint2022.12.cs" />
+    <Compile Include="Migrations\202211252023579_Sprint2022.12.designer.cs">
+      <DependentUpon>202211252023579_Sprint2022.12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211252027015_Sprint2022.11.13.cs" />
+    <Compile Include="Migrations\202211252027015_Sprint2022.11.13.designer.cs">
+      <DependentUpon>202211252027015_Sprint2022.11.13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Client.cs" />
@@ -280,6 +288,8 @@
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -350,6 +360,8 @@
     <Content Include="Views\Client_User\Edit.cshtml" />
     <Content Include="Views\Client_User\Index.cshtml" />
     <Content Include="Views\Shared\PartialViewsForms\_AddNewPowerHouseUser.cshtml" />
+    <Content Include="Views\Home\AdminHome.cshtml" />
+    <Content Include="Views\Home\SysSetUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -404,6 +416,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211230511376_Sprint2022.11.11.resx">
       <DependentUpon>202211230511376_Sprint2022.11.11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211252023579_Sprint2022.12.resx">
+      <DependentUpon>202211252023579_Sprint2022.12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211252027015_Sprint2022.11.13.resx">
+      <DependentUpon>202211252027015_Sprint2022.11.13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

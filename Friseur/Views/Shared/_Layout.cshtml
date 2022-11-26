@@ -32,13 +32,9 @@
 
 					@if (User.IsInRole(RoleName.SuperUser_CanDoEverything))
 					{
-						<li>@Html.ActionLink("Set Up", "SysAdminHome", "Home")</li>
+						<li>@Html.ActionLink("Set Up", "SysSetUp", "Home")</li>
 
 					}
-
-
-
-
 				</ul>
 				@Html.Partial("_LoginPartial")
 			</div>

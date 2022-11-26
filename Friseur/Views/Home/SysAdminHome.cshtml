@@ -1,10 +1,9 @@
-﻿
-@{
-	ViewBag.Title = "SysAdminHome";
-}
-
+﻿@model IEnumerable<Friseur.Models.Client>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	@{
+		ViewBag.Title = "SysAdminHome";
+	}
 	<style>
 		* {
 			box-sizing: border-box;
@@ -25,53 +24,71 @@
 			clear: both;
 		}
 	</style>
+	<link href="~/Main/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
 </head>
 
-<div class="jumbotron">
-	<h1>SET UP</h1>
 
+	<br />
 
 	<div class="row">
-		<div class="column">
-			<p>@Html.ActionLink("Clients", "ClientsTable", "Clients", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
-
-		</div>
-		<div class="column">
-			<p>@Html.ActionLink("Genders", "GendersTable", "Genders", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
-
-		</div>
-		<div class="column">
-			<p>@Html.ActionLink("User Types", "UserTypesTable", "UserTypes", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
-
+		<div class="col-md-12">
+			@{
+				Html.RenderAction("AddNewClient", "Clients");
+			}
 		</div>
 	</div>
 
 
-	<div class="row">
-		<div class="column">
-			<p>
-				@{
-					Html.RenderAction("AddNewPowerHouseUser", "Client_User");
-				}
-			</p>
-		</div>
-		<div class="column">
-			<p>@Html.ActionLink("Genders", "GendersTable", "Genders", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Client_Address)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Created_By)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CreationDate)
+			</th>
+			<th></th>
+		</tr>
 
-		</div>
-		<div class="column">
-			<p>@Html.ActionLink("User Types", "UserTypesTable", "UserTypes", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Client_Address)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Created_By)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreationDate)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.ClientId }) |
+					@Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.ClientId })
+				</td>
+			</tr>
+		}
 
-		</div>
-	</div>
+	</table>
 
 
 
 
 	<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
 	<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+
+
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")

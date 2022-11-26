@@ -91,7 +91,7 @@ namespace Friseur.Controllers
                 {
 
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                    var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email , ClientId = 1};
+                    var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email , ClientId = "1"};
                     var result = manager.Create(user, "ThisisatestPw1!");
 
                     if (result.Succeeded)

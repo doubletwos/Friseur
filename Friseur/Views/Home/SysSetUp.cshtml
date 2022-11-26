@@ -1,0 +1,73 @@
+﻿<head>
+	@{
+		ViewBag.Title = "SysSetUp";
+	}
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		/* Create two equal columns that floats next to each other */
+		.column {
+			float: left;
+			width: 33.33%;
+			padding: 10px;
+			height: 120px; /* Should be removed. Only for demonstration */
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	</style>
+
+</head>
+
+<div class="jumbotron">
+	<h1>SET UP</h1>
+
+
+	<div class="row">
+		<div class="column">
+			<p>@Html.ActionLink("Clients", "ClientsTable", "Clients", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
+
+		</div>
+		<div class="column">
+			<p>@Html.ActionLink("Genders", "GendersTable", "Genders", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
+
+		</div>
+		<div class="column">
+			<p>@Html.ActionLink("User Types", "UserTypesTable", "UserTypes", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
+
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="column">
+			<p>
+				@{
+					Html.RenderAction("AddNewPowerHouseUser", "Client_User");
+				}
+			</p>
+		</div>
+		<div class="column">
+			<p>@Html.ActionLink("Genders", "GendersTable", "Genders", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
+
+		</div>
+		<div class="column">
+			<p>@Html.ActionLink("User Types", "UserTypesTable", "UserTypes", null, htmlAttributes: new { @class = "btn btn-primary btn-md" })</p>
+
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

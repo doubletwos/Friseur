@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Friseur.Helpers;
 using Friseur.Models;
 using Friseur.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -20,6 +21,9 @@ namespace Friseur.Controllers
         // GET: ClientsTable
         public ActionResult ClientsTable()
         {
+            var clientid = User.Identity.GetUserClientId();
+            var userid = User.Identity.GetUserId();
+
             return View(db.Clients.ToList());
         }
 

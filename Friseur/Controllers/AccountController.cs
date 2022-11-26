@@ -463,15 +463,25 @@ namespace Friseur.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-
-            User.Identity.GetUserClientId();
-
-
-            if (Url.IsLocalUrl(returnUrl))
+            try
             {
-                return Redirect(returnUrl);
+                var home = "/";
+                if (returnUrl == home)
+                {
+                   return RedirectToAction("GateKeeper", "Home");
+                }
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
             }
-            return RedirectToAction("Index", "Home");
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            return RedirectToAction("GateKeeper", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
