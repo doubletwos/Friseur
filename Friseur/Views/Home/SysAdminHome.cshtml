@@ -4,43 +4,23 @@
 	@{
 		ViewBag.Title = "SysAdminHome";
 	}
-	<style>
-		* {
-			box-sizing: border-box;
-		}
-
-		/* Create two equal columns that floats next to each other */
-		.column {
-			float: left;
-			width: 33.33%;
-			padding: 10px;
-			height: 120px; /* Should be removed. Only for demonstration */
-		}
-
-		/* Clear floats after the columns */
-		.row:after {
-			content: "";
-			display: table;
-			clear: both;
-		}
-	</style>
 	<link href="~/Main/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-
+	<link href="~/Content/datatables.min.css" rel="stylesheet" />
 </head>
+<br />
 
-
-	<br />
-
-	<div class="row">
-		<div class="col-md-12">
-			@{
-				Html.RenderAction("AddNewClient", "Clients");
-			}
-		</div>
+<div class="row">
+	<div class="col-md-12">
+		@{
+			Html.RenderAction("AddNewClient", "Clients");
+		}
 	</div>
+</div>
+<br />
+<br />
 
-
-	<table class="table">
+<table id="clientTable" class="table">
+	<thead>
 		<tr>
 			<th>
 				@Html.DisplayNameFor(model => model.Name)
@@ -49,13 +29,11 @@
 				@Html.DisplayNameFor(model => model.Client_Address)
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Created_By)
-			</th>
-			<th>
 				@Html.DisplayNameFor(model => model.CreationDate)
 			</th>
-			<th></th>
 		</tr>
+	</thead>
+	<tbody>
 
 		@foreach (var item in Model)
 		{
@@ -67,31 +45,36 @@
 					@Html.DisplayFor(modelItem => item.Client_Address)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Created_By)
-				</td>
-				<td>
 					@Html.DisplayFor(modelItem => item.CreationDate)
-				</td>
-				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.ClientId }) |
-					@Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.ClientId })
 				</td>
 			</tr>
 		}
+	</tbody>
 
-	</table>
+</table>
 
 
 
 
-	<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-	<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+@*<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+	<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 
 
 
 @section Scripts {
+	<script src="~/Scripts/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#clientTable').DataTable(
+				{
+					"ordering": false,
+				}
+			);
+		});
+	</script>
 	@Scripts.Render("~/bundles/jqueryval")
+	<script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+
 }
 
 

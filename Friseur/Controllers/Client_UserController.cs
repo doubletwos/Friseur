@@ -76,6 +76,32 @@ namespace Friseur.Controllers
             }
         }
 
+        [ChildActionOnly]
+        [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
+        public ActionResult AddNewClientAdminUser() 
+        {
+            try
+            {
+                var gender = db.Genders.ToList();
+                var usertype = db.UserTypes.ToList();
+                var client = db.Clients.ToList();
+
+                var viewmodel = new NewClientAdminUserViewModel
+                {
+                    Genders = gender,
+                    UserTypes = usertype,
+                    Clients = client
+                };
+
+                return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClientAdminUser.cshtml", viewmodel);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
 
 
         // POST: Client_User/Create
@@ -92,6 +118,50 @@ namespace Friseur.Controllers
 
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                     var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email , ClientId = "1"};
+                    var result = manager.Create(user, "ThisisatestPw1!");
+
+                    if (result.Succeeded)
+                    {
+                        string newId = user.Id;
+                    }
+
+                    viewmodel.Client_User.CreatedBy = User.Identity.GetUserId();
+                    viewmodel.Client_User.LastLogOnDate = null;
+                    viewmodel.Client_User.LogOnCount = 0;
+                    viewmodel.Client_User.AppUserId = user.Id;
+
+
+                    db.Client_Users.Add(viewmodel.Client_User);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            return View("Index");
+        }
+
+
+        // POST: Client_User/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
+        public ActionResult Create(NewClientAdminUserViewModel viewmodel)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var clientid = User.Identity.GetUserClientId();
+
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email, ClientId = clientid };
                     var result = manager.Create(user, "ThisisatestPw1!");
 
                     if (result.Succeeded)

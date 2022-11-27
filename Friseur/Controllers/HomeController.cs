@@ -73,6 +73,14 @@ namespace Friseur.Controllers
         }
 
 
+        public ActionResult ClientAdminHome() 
+        {
+
+            return View(db.Client_Users.ToList());
+
+        }
+
+
         public ActionResult AdminHome(int? clientid)
         {
             try

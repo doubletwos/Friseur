@@ -64,7 +64,6 @@ namespace Friseur.Controllers
                 var viewmodel = new NewClientViewModel
                 {
                     ClientTypes = clientTypes,
-
                 };
 
                 return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClient.cshtml", viewmodel);
@@ -72,7 +71,6 @@ namespace Friseur.Controllers
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }
@@ -90,12 +88,6 @@ namespace Friseur.Controllers
                     viewmodel.Client.Created_By = User.Identity.GetUserId();
                     viewmodel.Client.CreationDate = DateTime.Now;
 
-
-
-
-
-
-
                     db.Clients.Add(viewmodel.Client);
                     db.SaveChanges();
                     return RedirectToAction("ClientsTable");
@@ -104,7 +96,6 @@ namespace Friseur.Controllers
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             return View(viewmodel);
