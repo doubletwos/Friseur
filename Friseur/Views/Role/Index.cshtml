@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+<head>
+
+	@{
+		ViewBag.Title = "RolesTable";
+	}
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		/* Create two equal columns that floats next to each other */
+		.column {
+			float: left;
+			width: 33.33%;
+			padding: 10px;
+			height: 120px; /* Should be removed. Only for demonstration */
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	</style>
+	<link href="~/Main/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+<br />
+
+<div class="row">
+	<div class="column">
+		<p>
+
+			@{
+				Html.RenderAction("AddNewSystemUserRole", "Role");
+			}
+		</p>
+	</div>
+
+	<div class="column">
+		<p>
+
+			@{
+				Html.RenderAction("AssignRoleToUser", "Role");
+			}
+		</p>
+	</div>
+</div>
+
+
+
+<table class="table">
+	<tr>
+		<th>
+			Roles
+		</th>
+	</tr>
+
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@item.Name
+
+			</td>
+		</tr>
+	}
+
+</table>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+
+

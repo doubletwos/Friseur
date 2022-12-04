@@ -45,7 +45,7 @@ namespace Friseur.Controllers
             else
             {
                 var c_id = User.Identity.GetUserClientId();
-                return RedirectToAction("AdminHome", "Home", new { id = c_id });
+                return RedirectToAction("ClientAdminHome", "Home", new { id = c_id });
             }
 
         }
@@ -73,32 +73,20 @@ namespace Friseur.Controllers
         }
 
 
-        public ActionResult ClientAdminHome() 
-        {
-
-            return View(db.Client_Users.ToList());
-
-        }
 
 
-        public ActionResult AdminHome(int? clientid)
+
+
+        public ActionResult ClientAdminHome(string id)  
         {
             try
             {
-                var c_id = User.Identity.GetUserClientId();
-                var id = Convert.ToInt32(clientid);
-                var conv = Convert.ToInt32(c_id); 
+                var clientid = Convert.ToInt32(id);
 
-                Client client = db.Clients.Find(id);
+                return View(db.Client_Users
+                    .Where(x => x.ClientId == clientid)
+                    .ToList());
 
-                if (id != conv)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                else
-                {
-                    return View();
-                }
             }
             catch (Exception e)
             {

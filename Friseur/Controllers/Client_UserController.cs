@@ -77,23 +77,48 @@ namespace Friseur.Controllers
         }
 
         [ChildActionOnly]
-        [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
         public ActionResult AddNewClientAdminUser() 
         {
             try
             {
-                var gender = db.Genders.ToList();
-                var usertype = db.UserTypes.ToList();
-                var client = db.Clients.ToList();
 
-                var viewmodel = new NewClientAdminUserViewModel
+                //User added by SysAdmin
+                if (User.IsInRole(RoleName.SuperUser_CanDoEverything))
                 {
-                    Genders = gender,
-                    UserTypes = usertype,
-                    Clients = client
-                };
+                    var gender = db.Genders.ToList();
+                    var usertype = db.UserTypes.ToList();
+                    var client = db.Clients.ToList();
 
-                return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClientAdminUser.cshtml", viewmodel);
+                    var viewmodel = new NewClientAdminUserViewModel
+                    {
+                        Genders = gender,
+                        UserTypes = usertype,
+                        Clients = client
+                    };
+
+                    return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClientAdminUser.cshtml", viewmodel);
+
+                }
+
+                //User added by ClientAdmin
+                if (User.IsInRole(RoleName.ClientUser_ClientLevelTasks))
+                {
+                    var gender = db.Genders.ToList();
+                    var usertype = db.UserTypes.ToList();
+                    var client = db.Clients.ToList();
+
+                    var viewmodel = new NewClientAdminUserViewModel
+                    {
+                        Genders = gender,
+                        UserTypes = usertype,
+                        Clients = client
+                    };
+
+                    return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClientAdminUser.cshtml", viewmodel);
+
+                }
+
+                return View();
 
             }
             catch (Exception e)
@@ -108,10 +133,10 @@ namespace Friseur.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
-        public ActionResult Create(NewPowerHouseUserViewModel viewmodel) 
+        public ActionResult CreateNphu(NewPowerHouseUserViewModel viewmodel) 
         {
 
-            try
+            try 
             {
                 if (ModelState.IsValid)
                 {
@@ -130,9 +155,14 @@ namespace Friseur.Controllers
                     viewmodel.Client_User.LogOnCount = 0;
                     viewmodel.Client_User.AppUserId = user.Id;
 
+                    // Assign role to user
+                    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    var assignrole = UserManager.AddToRole(user.Id, "SuperUser_CanDoEverything");
+
 
                     db.Client_Users.Add(viewmodel.Client_User);
                     db.SaveChanges();
+
                     return RedirectToAction("Index");
                 }
 
@@ -141,7 +171,7 @@ namespace Friseur.Controllers
             {
 
                 throw e;
-            }
+            } 
             return View("Index");
         }
 
@@ -149,44 +179,85 @@ namespace Friseur.Controllers
         // POST: Client_User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.SuperUser_CanDoEverything)]
-        public ActionResult Create(NewClientAdminUserViewModel viewmodel)
+
+        public ActionResult CreateNcau(NewClientAdminUserViewModel viewmodel)
         {
 
             try
             {
-                if (ModelState.IsValid)
+                    //User added by SysAdmin
+                    if(User.IsInRole(RoleName.SuperUser_CanDoEverything))
+                    {
+
+                        var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                        var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email, ClientId = viewmodel.Client_User.ClientId.ToString() };
+                        var result = manager.Create(user, "ThisisatestPw1!");
+
+                        if (result.Succeeded)
+                        {
+                            string newId = user.Id;
+                        }
+
+                        viewmodel.Client_User.CreatedBy = User.Identity.GetUserId();
+                        viewmodel.Client_User.LastLogOnDate = null;
+                        viewmodel.Client_User.LogOnCount = 0;
+                        viewmodel.Client_User.AppUserId = user.Id;
+                        viewmodel.Client_User.UserTypeId = 3;
+
+
+                       db.Client_Users.Add(viewmodel.Client_User);
+                       db.SaveChanges();
+
+                    // Assign role to user
+                        var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                        var assignrole = UserManager.AddToRole(user.Id, "ClientUser_ClientLevelTasks");
+
+                        return RedirectToAction("Index");
+
+                    }
+
+                //User added by ClientAdmin
+                if (User.IsInRole(RoleName.ClientUser_ClientLevelTasks))
                 {
 
                     var clientid = User.Identity.GetUserClientId();
 
-                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                    var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email, ClientId = clientid };
-                    var result = manager.Create(user, "ThisisatestPw1!");
+                        var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                        var user = new ApplicationUser() { Email = viewmodel.Client_User.Email, UserName = viewmodel.Client_User.Email, ClientId = clientid };
+                        var result = manager.Create(user, "ThisisatestPw1!");
 
-                    if (result.Succeeded)
-                    {
-                        string newId = user.Id;
-                    }
+                        if (result.Succeeded)
+                        {
+                            string newId = user.Id;
+                        }
 
-                    viewmodel.Client_User.CreatedBy = User.Identity.GetUserId();
-                    viewmodel.Client_User.LastLogOnDate = null;
-                    viewmodel.Client_User.LogOnCount = 0;
-                    viewmodel.Client_User.AppUserId = user.Id;
 
+                    //Convert ClientId to Int
+                    var cid = Convert.ToInt32(clientid);
+
+                        viewmodel.Client_User.CreatedBy = User.Identity.GetUserId();
+                        viewmodel.Client_User.LastLogOnDate = null;
+                        viewmodel.Client_User.LogOnCount = 0;
+                        viewmodel.Client_User.AppUserId = user.Id;
+                        viewmodel.Client_User.ClientId = cid;
+
+                    // Assign role to user
+                    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    var assignrole = UserManager.AddToRole(user.Id, "ClientUser_ClientLevelTasks");
 
                     db.Client_Users.Add(viewmodel.Client_User);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
 
+                    return RedirectToAction("Index");
+                 }
+
+                return View();
             }
             catch (Exception e)
             {
 
                 throw e;
             }
-            return View("Index");
         }
 
         // GET: Client_User/Edit/5

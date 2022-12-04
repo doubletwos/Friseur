@@ -7,6 +7,15 @@ namespace Friseur.Models
 {
     public static class RoleName
     {
-        public const string SuperUser_CanDoEverything = "SuperUser_CanDoEverything";
+
+
+
+
+
+        public const string SuperUser_CanDoEverything = "SuperUser_CanDoEverything";  
+
+        public const string ClientUser_ClientLevelTasks = "ClientUser_ClientLevelTasks";
+
+
     }
 }

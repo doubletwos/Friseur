@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+
+<a href="#" class="btn btn-primary btn-md" data-toggle="modal" data-target="#ModalAddNewRole">
+	<i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+	Add New Role
+</a>
+
+
+<div class="modal fade" id="ModalAddNewRole">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a href="#" class="close" data-dismiss="modal">&times;</a>
+				<h3 class="modal-title">Add New System Role</h3>
+			</div>
+
+
+			<div class="modal-body">
+				<form id="AddNewRoleForm">
+					@Html.AntiForgeryToken()
+
+					<div class="form-horizontal">
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+						<div class="col-md-10">
+							<input type="text" id="RoleId" name="role" class="form-control" required data-errormessage-value-missing="Please input something" />
+						</div>
+					</div>
+				</form>
+
+			</div>
+
+			<div class="modal-footer">
+				<input type="reset" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+				<input type="button" value="Save" class="btn btn-default" id="btnSubmit" />
+			</div>
+		</div>
+
+
+			</div>
+		</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#btnSubmit").on("click", function () {
+			if ($("#AddNewRoleForm").valid()) {
+
+				var data = $("#AddNewRoleForm").serialize();
+				$.ajax({
+					type: "POST",
+					url: "/Role/Create",
+					data: data,
+					success: function (response) {
+						toastr.options.onHidden = function () {
+							window.location.reload();
+						}
+						toastr.options.positionClass = "toast-bottom-full-width";
+						toastr.options.progressBar = true;
+						toastr.options.timeout = 0;
+						toastr.options.extendedTimeOut = 0;
+						toastr.options.fadeOut = 500;
+						toastr.options.tapToDismiss = false;
+						toastr.success("Role added successfully");
+						$("#ModalAddNewRole").modal("hide");
+						$("#AddNewRoleForm")[0].reset();
+					},
+					error: function (response) {
+						toastr.options.positionClass = "toast-bottom-full-width";
+						toastr.options.progressBar = true;
+						toastr.options.timeout = 0;
+						toastr.options.extendedTimeOut = 0;
+						toastr.options.fadeOut = 500;
+						toastr.options.tapToDismiss = false;
+						toastr.error("Oops, There has been a problem, the system adminstrators have been notified.");
+						$("#ModalAddNewRole").modal("hide");
+						$("#AddNewRoleForm")[0].reset();
+					}
+				})
+
+			}
+		})
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#AddNewRoleForm').validate({
+			errorClass: 'help-block animation-slideDown',
+			errorElement: 'div',
+			errorPlacement: function (error, e) {
+				e.parents('.form-group > div').append(error);
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+				$(e).closest('.help-block').remove();
+			},
+			success: function (e) {
+				e.closest('.form-group').removeClass('has-success has-error');
+				e.closest('.help-block').remove();
+			},
+			rules: {
+				'role': {
+					required: true,
+					maxlength: 35,
+				}
+			},
+			messages: {
+				'role': {
+					required: 'Please enter name',
+					maxlength: 'Not more than 35 characters allowed'
+				}
+			}
+		});
+	});
+
+</script>
+
+
+
+

@@ -98,7 +98,7 @@
 				var data = $("#AddUserForm").serialize();
 				$.ajax({
 					type: "POST",
-					url: "/Client_User/Create",
+					url: "/Client_User/CreateNphu",
 					data: data,
 					success: function (response) {
 						toastr.options.onHidden = function () {
