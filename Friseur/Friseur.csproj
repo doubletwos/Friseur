@@ -256,6 +256,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AssignSystemRoleViewModel.cs" />
     <Compile Include="ViewModels\NewClientAdminUserViewModel.cs" />
+    <Compile Include="ViewModels\NewClientCustomerViewModel.cs" />
     <Compile Include="ViewModels\NewClientViewModel.cs" />
     <Compile Include="ViewModels\NewPowerHouseUserViewModel.cs" />
   </ItemGroup>
@@ -414,6 +415,7 @@
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Shared\PartialViewsForms\_AddNewSystemUserRole.cshtml" />
     <Content Include="Views\Shared\PartialViewsForms\_AssignRoleToUser.cshtml" />
+    <Content Include="Views\Shared\PartialViewsForms\_AddNewClientCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

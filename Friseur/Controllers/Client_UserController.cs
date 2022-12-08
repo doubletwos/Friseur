@@ -77,14 +77,12 @@ namespace Friseur.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult AddNewClientAdminUser() 
+        public ActionResult AddNewClientAdminUser()
         {
             try
             {
 
-                //User added by SysAdmin
-                if (User.IsInRole(RoleName.SuperUser_CanDoEverything))
-                {
+
                     var gender = db.Genders.ToList();
                     var usertype = db.UserTypes.ToList();
                     var client = db.Clients.ToList();
@@ -97,35 +95,50 @@ namespace Friseur.Controllers
                     };
 
                     return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClientAdminUser.cshtml", viewmodel);
-
-                }
-
-                //User added by ClientAdmin
-                if (User.IsInRole(RoleName.ClientUser_ClientLevelTasks))
-                {
-                    var gender = db.Genders.ToList();
-                    var usertype = db.UserTypes.ToList();
-                    var client = db.Clients.ToList();
-
-                    var viewmodel = new NewClientAdminUserViewModel
-                    {
-                        Genders = gender,
-                        UserTypes = usertype,
-                        Clients = client
-                    };
-
-                    return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClientAdminUser.cshtml", viewmodel);
-
-                }
-
-                return View();
 
             }
+
             catch (Exception e)
             {
                 throw e;
             }
+
+
         }
+
+
+        [ChildActionOnly]
+        public ActionResult AddNewClientCustomer() 
+        {
+            try
+            {
+
+
+                var gender = db.Genders.ToList();
+                var usertype = db.UserTypes.ToList();
+                var client = db.Clients.ToList();
+
+                var viewmodel = new NewClientCustomerViewModel
+                {
+                    Genders = gender,
+                    UserTypes = usertype,
+                    Clients = client
+                };
+
+                return PartialView("~/Views/Shared/PartialViewsForms/_AddNewClientCustomer.cshtml", viewmodel);
+
+
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+
+        }
+
+
 
 
 

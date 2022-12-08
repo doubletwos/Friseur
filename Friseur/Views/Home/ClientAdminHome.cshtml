@@ -3,15 +3,40 @@
 	@{
 		ViewBag.Title = "ClientAdminHome";
 	}
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		/* Create two equal columns that floats next to each other */
+		.column {
+			float: left;
+			width: 33.33%;
+			padding: 10px;
+			height: 120px; /* Should be removed. Only for demonstration */
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	</style>
 	<link href="~/Main/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 	<link href="~/Content/datatables.min.css" rel="stylesheet" />
 </head>
 <br />
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="column">
 		@{
 			Html.RenderAction("AddNewClientAdminUser", "Client_User");
+		}
+	</div>
+	<div class="column">
+		@{
+			Html.RenderAction("AddNewClientCustomer", "Client_User");
 		}
 	</div>
 </div>
