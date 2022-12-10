@@ -416,6 +416,7 @@
     <Content Include="Views\Shared\PartialViewsForms\_AddNewSystemUserRole.cshtml" />
     <Content Include="Views\Shared\PartialViewsForms\_AssignRoleToUser.cshtml" />
     <Content Include="Views\Shared\PartialViewsForms\_AddNewClientCustomer.cshtml" />
+    <Content Include="Views\Shared\PartialViewsForms\_EditClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

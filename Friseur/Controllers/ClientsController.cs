@@ -117,6 +117,40 @@ namespace Friseur.Controllers
             return View(client);
         }
 
+        public ActionResult EditClient(int Id) 
+        {
+            try
+            {
+                if (Id != 0)
+                {
+
+                    var edtclient = db.Clients
+                        .Include(d => d.ClientType)
+                        .Where(x => x.ClientId == Id)
+                        .FirstOrDefault();
+
+                    ViewBag.ClientTypeId = new SelectList(db.ClientTypes, "ClientTypeId", "ClientTypeName", edtclient.ClientTypeId);
+
+                    var edtclt = new Client
+                    {
+                        ClientId = edtclient.ClientId,
+                        Name = edtclient.Name,
+                        Client_Address = edtclient.Client_Address,
+                        Created_By = edtclient.Created_By,
+                        CreationDate = edtclient.CreationDate,
+                        ClientTypeId = edtclient.ClientTypeId
+                    };
+                    return PartialView("~/Views/Shared/PartialViewsForms/_EditClient.cshtml", edtclient);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Redirect("~/ErrorHandler.html");
+            }
+            return new HttpStatusCodeResult(204);
+        }
+
         // POST: Clients/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
