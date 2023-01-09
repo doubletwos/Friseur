@@ -151,19 +151,28 @@ namespace Friseur.Controllers
             return new HttpStatusCodeResult(204);
         }
 
+
         // POST: Clients/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit (Client client)
+        public ActionResult Update(Client client)  
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("ClientsTable");
+
+                    db.Entry(client).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ClientsTable");
+
             }
-            return View(client);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Redirect("~/ErrorHandler.html");
+            }
+
         }
+
 
         // GET: Clients/Delete/5
         public ActionResult Delete(int? id)

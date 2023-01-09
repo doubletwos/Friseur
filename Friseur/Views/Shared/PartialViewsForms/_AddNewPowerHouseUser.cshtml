@@ -21,21 +21,12 @@
 						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 						<div class="form-group">
-							@Html.LabelFor(model => model.Client_User.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+							@Html.LabelFor(model => model.Client_User.Name, htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
-								@Html.EditorFor(model => model.Client_User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Client_User.FirstName, "", new { @class = "text-danger" })
+								@Html.EditorFor(model => model.Client_User.Name, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Client_User.Name, "", new { @class = "text-danger" })
 							</div>
 						</div>
-
-						<div class="form-group">
-							@Html.LabelFor(model => model.Client_User.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-							<div class="col-md-10">
-								@Html.EditorFor(model => model.Client_User.LastName, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Client_User.LastName, "", new { @class = "text-danger" })
-							</div>
-						</div>
-
 						<div class="form-group">
 							@Html.LabelFor(model => model.Client_User.Email, htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
@@ -149,13 +140,9 @@
 				e.closest('.help-block').remove();
 			},
 			rules: {
-				'Client_User.FirstName': {
+				'Client_User.Name': {
 					required: true,
-					maxlength: 15,
-				},
-				'Client_User.LastName': {
-					required: true,
-					maxlength: 15,
+					maxlength: 20,
 				},
 				'Client_User.Email': {
 					required: true,
@@ -172,26 +159,22 @@
 				},
 			},
 			messages: {
-				'Client_User.FirstName': {
-					required: 'Please enter First Name ',
-					maxlength: 'Not more than 15 characters allowed'
-				},
-				'Client_User.LastName': {
-					required: 'Please enter Last Name',
-					maxlength: 'Not more than 15 characters allowed'
+				'Client_User.Name': {
+					required: 'Please enter name ',
+					maxlength: 'Not more than 20 characters allowed'
 				},
 				'Client_User.Email': {
-					required: 'Please enter Email Address',
+					required: 'Please enter email address',
 					maxlength: 'Not more than 30 characters allowed'
 				},
 				'Client_User.ClientId': {
-					required: 'Please select Client',
+					required: 'Please select client',
 				},
 				'Client_User.GenderId': {
-					required: 'Please select Gender',
+					required: 'Please select gender',
 				},
 				'Client_User.UserTypeId': {
-					required: 'Please enter User Type',
+					required: 'Please enter user type',
 				},
 			}
 		});

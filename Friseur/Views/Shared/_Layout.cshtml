@@ -23,8 +23,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				@Html.ActionLink("Friseur", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
 			</div>
 			<div class="navbar-collapse collapse">
+
 				<ul class="nav navbar-nav">
 					@if (User.IsInRole(RoleName.SuperUser_CanDoEverything))
 					{
@@ -34,8 +36,8 @@
 					{
 						<li>@Html.ActionLink("Home", "Index", "Home")</li>
 					}
-					<li>@Html.ActionLink("About", "About", "Home")</li>
-					<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+				   <li>@Html.ActionLink("Staffs", "Staffs", "Home")</li>
+					@*<li>@Html.ActionLink("About", "About", "Home")</li>*@
 
 					@if (User.IsInRole(RoleName.SuperUser_CanDoEverything))
 					{
@@ -56,7 +58,7 @@
 
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/toastr.js"></script>
+	<script src="~/Scripts/toastr.js"></script>
 	@RenderSection("scripts", required: false)
 </body>
 </html>

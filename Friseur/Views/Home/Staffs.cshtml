@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Friseur.Models.Client_User>
 <head>
 	@{
-		ViewBag.Title = "ClientAdminHome";
+		ViewBag.Title = "Staffs";
 	}
 	<style>
 		* {
@@ -31,7 +31,7 @@
 <div class="row">
 	<div class="column">
 		@{
-			Html.RenderAction("AddNewClientCustomer", "Client_User");
+			Html.RenderAction("AddNewClientAdminUser", "Client_User");
 		}
 	</div>
 	<div class="column">
@@ -46,7 +46,7 @@
 	<thead>
 		<tr>
 			<th>
-				Customer Name
+				@Html.DisplayNameFor(model => model.Client.Name)
 			</th>
 
 
@@ -62,7 +62,7 @@
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Name)  
+					@Html.DisplayFor(modelItem => item.Name)
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Email)

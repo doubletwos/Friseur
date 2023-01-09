@@ -20,21 +20,12 @@
 						<hr />
 						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 						<div class="form-group">
-							@Html.LabelFor(model => model.Client_User.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+							@Html.LabelFor(model => model.Client_User.Name, htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
-								@Html.EditorFor(model => model.Client_User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Client_User.FirstName, "", new { @class = "text-danger" })
+								@Html.EditorFor(model => model.Client_User.Name, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Client_User.Name, "", new { @class = "text-danger" })
 							</div>
 						</div>
-
-						<div class="form-group">
-							@Html.LabelFor(model => model.Client_User.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-							<div class="col-md-10">
-								@Html.EditorFor(model => model.Client_User.LastName, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Client_User.LastName, "", new { @class = "text-danger" })
-							</div>
-						</div>
-
 						<div class="form-group">
 							@Html.LabelFor(model => model.Client_User.Email, htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
@@ -42,9 +33,6 @@
 								@Html.ValidationMessageFor(model => model.Client_User.Email, "", new { @class = "text-danger" })
 							</div>
 						</div>
-
-
-
 						<div class="form-group">
 							@Html.LabelFor(model => model.Client_User.GenderId, "Gender", htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
@@ -55,7 +43,7 @@
 
 						<div class="form-group">
 							<div class="col-md-10">
-								@Html.DropDownListFor(m => m.Client_User.UserTypeId, new SelectList(Model.UserTypes, "UserTypeId", "name"), "Please Select", new { @id = "UserTypeId1", @class = "form-control" })
+								@Html.DropDownListFor(m => m.Client_User.UserTypeId, new SelectList(Model.UserTypes, "UserTypeId", "name"), "Please Select", new { @id = "UserTypeId5", @class = "form-control" })
 							</div>
 						</div>
 
@@ -92,8 +80,8 @@
 <script src="~/Scripts/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function () {
-		$("#UserTypeId1").hide();
-		$("#UserTypeId1").val("3");
+		$("#UserTypeId5").hide();
+		$("#UserTypeId5").val("3");
 
 
 		$("#btnSubmit").on("click", function () {
@@ -153,13 +141,9 @@
 				e.closest('.help-block').remove();
 			},
 			rules: {
-				'Client_User.FirstName': {
+				'Client_User.Name': {
 					required: true,
-					maxlength: 15,
-				},
-				'Client_User.LastName': {
-					required: true,
-					maxlength: 15,
+					maxlength: 20,
 				},
 				'Client_User.Email': {
 					required: true,
@@ -174,23 +158,19 @@
 
 			},
 			messages: {
-				'Client_User.FirstName': {
-					required: 'Please enter First Name ',
-					maxlength: 'Not more than 15 characters allowed'
-				},
-				'Client_User.LastName': {
-					required: 'Please enter Last Name',
-					maxlength: 'Not more than 15 characters allowed'
+				'Client_User.Name': {
+					required: 'Please enter name ',
+					maxlength: 'Not more than 20 characters allowed'
 				},
 				'Client_User.Email': {
-					required: 'Please enter Email Address',
+					required: 'Please enter email address',
 					maxlength: 'Not more than 30 characters allowed'
 				},
 				'Client_User.ClientId': {
-					required: 'Please select Client',
+					required: 'Please select client',
 				},
 				'Client_User.GenderId': {
-					required: 'Please select Gender',
+					required: 'Please select gender',
 				}
 
 			}

@@ -27,7 +27,6 @@ namespace Friseur.Controllers
             else
             {
                 var not = false;
-
                 Console.WriteLine(not);
             }
 
@@ -68,7 +67,9 @@ namespace Friseur.Controllers
         public ActionResult SysAdminHome()
         {
 
-            return View(db.Clients.ToList());
+            return View(db.Clients
+                .Where(x => x.ClientTypeId != 1)
+                .ToList());
 
         }
 
@@ -81,12 +82,12 @@ namespace Friseur.Controllers
         {
             try
             {
-                var clientid = Convert.ToInt32(id);
+                     var clientid = Convert.ToInt32(id);
 
-                return View(db.Client_Users
+                     return View(db.Client_Users
                     .Where(x => x.ClientId == clientid)
+                    .Where(x => x.UserTypeId == 4)
                     .ToList());
-
             }
             catch (Exception e)
             {
@@ -95,19 +96,24 @@ namespace Friseur.Controllers
 
         }
 
-        public ActionResult About()
+        public ActionResult Staffs()
         {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+            var c_id = User.Identity.GetUserClientId();
+            var clientid = Convert.ToInt32(c_id);
+
+            return View(db.Client_Users
+           .Where(x => x.ClientId == clientid)
+           .ToList());
+
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
 
     }

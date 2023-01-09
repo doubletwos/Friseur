@@ -16,7 +16,9 @@
 			<div class="modal-body">
 				<form id="AddClientForm">
 					@Html.AntiForgeryToken()
-
+					@{
+						HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+					}
 					<div class="form-horizontal">
 						<hr />
 						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -39,7 +41,6 @@
 							@Html.LabelFor(model => model.Client.ClientTypeId, "Client Type", htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
 								@Html.DropDownListFor(m => m.Client.ClientTypeId, new SelectList(Model.ClientTypes, "ClientTypeId", "ClientTypeName"), "Please Select", new { @class = "form-control" })
-
 								@Html.ValidationMessageFor(model => model.Client.ClientTypeId, "", new { @class = "text-danger" })
 							</div>
 						</div>
@@ -55,6 +56,7 @@
 </div>
 
 @section Scripts {
+
 	@Scripts.Render("~/bundles/jqueryval")
 }
 
@@ -103,7 +105,9 @@
 	});
 </script>
 
+
 <script>
+
 	$(document).ready(function () {
 		$('#AddClientForm').validate({
 			errorClass: 'help-block animation-slideDown',
@@ -134,7 +138,7 @@
 			},
 			messages: {
 				'Client.Name': {
-					required: 'Please enter organisation name',
+					required: 'Please enter client name',
 					maxlength: 'Not more than 20 characters allowed'
 				},
 				'Client.Client_Address': {
@@ -145,6 +149,8 @@
 			}
 		});
 	});
+
+
 
 </script>
 

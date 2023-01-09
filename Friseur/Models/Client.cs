@@ -11,6 +11,8 @@ namespace Friseur.Models
         public int ClientId { get; set; }
 
         [Required(ErrorMessage = "Client name is required")]
+        [Display(Name = "Client Name")]
+
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Client address is required")]
@@ -26,6 +28,7 @@ namespace Friseur.Models
 
 
         [Required(ErrorMessage = "Client type is required")]
+        [Display(Name = "Client Type")]
         public int ClientTypeId { get; set; }
         public ClientType ClientType { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,9 +12,7 @@ namespace Friseur.Models
 
         public string AppUserId { get; set; } 
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
         public string Email { get; set; }
 
@@ -32,7 +31,11 @@ namespace Friseur.Models
         public Gender Gender { get; set; }
 
         public int UserTypeId { get; set; }
-        public UserType UserType { get; set; } 
+        public UserType UserType { get; set; }
+
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? DateAdded { get; set; } 
 
 
 

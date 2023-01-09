@@ -20,21 +20,12 @@
 						<hr />
 						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 						<div class="form-group">
-							@Html.LabelFor(model => model.Client_User.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+							@Html.LabelFor(model => model.Client_User.Name, htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
-								@Html.EditorFor(model => model.Client_User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Client_User.FirstName, "", new { @class = "text-danger" })
+								@Html.EditorFor(model => model.Client_User.Name, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Client_User.Name, "", new { @class = "text-danger" })
 							</div>
 						</div>
-
-						<div class="form-group">
-							@Html.LabelFor(model => model.Client_User.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-							<div class="col-md-10">
-								@Html.EditorFor(model => model.Client_User.LastName, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Client_User.LastName, "", new { @class = "text-danger" })
-							</div>
-						</div>
-
 						<div class="form-group">
 							@Html.LabelFor(model => model.Client_User.Email, htmlAttributes: new { @class = "control-label col-md-2" })
 							<div class="col-md-10">
@@ -74,7 +65,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="reset" value="Cancel" class="btn btn-default" data-dismiss="modal" />
-						<input type="button" value="Save" class="btn btn-default" id="btnSubmit8" />
+						<input type="button" value="Save" class="btn btn-default" id="btnSubmit11" />
 					</div>
 				</form>
 			</div>
@@ -93,16 +84,16 @@
 <script>
 	$(document).ready(function () {
 		$("#UserTypeId4").hide();
-		$("#UserTypeId1").val("4");
+		$("#UserTypeId4").val("4");
 
 
-		$("#btnSubmit8").on("click", function () {
+		$("#btnSubmit11").on("click", function () {
 			if ($("#AddCustomerForm").valid()) {
 
 				var data = $("#AddCustomerForm").serialize();
 				$.ajax({
 					type: "POST",
-					url: "/Client_User/CreateNcau",
+					url: "/Client_User/CreateNcc",
 					data: data,
 					success: function (response) {
 						toastr.options.onHidden = function () {
@@ -153,20 +144,13 @@
 				e.closest('.help-block').remove();
 			},
 			rules: {
-				'Client_User.FirstName': {
+				'Client_User.Name': {
 					required: true,
-					maxlength: 15,
-				},
-				'Client_User.LastName': {
-					required: true,
-					maxlength: 15,
+					maxlength: 20,
 				},
 				'Client_User.Email': {
 					required: true,
 					maxlength: 30,
-				},
-				'Client_User.ClientId': {
-					required: true,
 				},
 				'Client_User.GenderId': {
 					required: true,
@@ -174,23 +158,16 @@
 
 			},
 			messages: {
-				'Client_User.FirstName': {
-					required: 'Please enter First Name ',
-					maxlength: 'Not more than 15 characters allowed'
-				},
-				'Client_User.LastName': {
-					required: 'Please enter Last Name',
-					maxlength: 'Not more than 15 characters allowed'
+				'Client_User.Name': {
+					required: 'Please enter name ',
+					maxlength: 'Not more than 20 characters allowed'
 				},
 				'Client_User.Email': {
-					required: 'Please enter Email Address',
+					required: 'Please enter email address',
 					maxlength: 'Not more than 30 characters allowed'
 				},
-				'Client_User.ClientId': {
-					required: 'Please select Client',
-				},
 				'Client_User.GenderId': {
-					required: 'Please select Gender',
+					required: 'Please select gender',
 				}
 
 			}
